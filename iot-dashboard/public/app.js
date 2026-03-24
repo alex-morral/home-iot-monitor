@@ -225,6 +225,48 @@ function addAlert(message, type) {
   while (list.children.length > 20) list.lastChild.remove();
 }
 
+// --- Load history from database on startup ---
+async function loadHistory() {
+  try {
+    const res = await fetch('/api/history?limit=60');
+    const rows = await res.json();
+    rows.forEach((row) => {
+      const time = new Date(row.timestamp).toLocaleTimeString();
+      history.labels.push(time);
+      history.temperature.push(row.temperature ?? 0);
+      history.humidity.push(row.humidity ?? 0);
+      history.light.push(row.light ?? 0);
+      history.motion.push(row.motion ?? 0);
+    });
+
+    // Trim to MAX_POINTS
+    while (history.labels.length > MAX_POINTS) {
+      history.labels.shift();
+      SENSORS.forEach((key) => history[key].shift());
+    }
+
+    // Update all charts with historical data
+    chartTempHumidity.data.labels = history.labels;
+    chartTempHumidity.data.datasets[0].data = history.temperature;
+    chartTempHumidity.data.datasets[1].data = history.humidity;
+    chartTempHumidity.update('none');
+
+    chartLight.data.labels = history.labels;
+    chartLight.data.datasets[0].data = history.light;
+    chartLight.update('none');
+
+    chartAll.data.labels = history.labels;
+    SENSORS.forEach((key, i) => {
+      chartAll.data.datasets[i].data = history[key].map((v) => normalize(key, v));
+    });
+    chartAll.update('none');
+
+    console.log(`[History] Loaded ${rows.length} readings from database`);
+  } catch (err) {
+    console.warn('[History] Could not load history:', err.message);
+  }
+}
+
 // --- WebSocket ---
 function connect() {
   const protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
@@ -251,4 +293,5 @@ function connect() {
   ws.onerror = () => ws.close();
 }
 
+loadHistory();
 connect();

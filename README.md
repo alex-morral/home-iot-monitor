@@ -113,6 +113,23 @@ const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID';
 
 ---
 
+## Screenshots
+
+### Web Dashboard
+![Dashboard](docs/dashboard.png)
+
+### MQTT Terminal Output
+![Terminal](docs/terminal.png)
+
+### Telegram Motion Alert
+![Telegram](docs/telegram.png)
+
+### Hardware
+![Hardware front](docs/hardware-1.jpg)
+![Hardware top](docs/hardware-2.jpg)
+
+---
+
 ## Dashboard
 
 The web dashboard shows:
@@ -124,11 +141,11 @@ The web dashboard shows:
 
 ## API Endpoints
 
-| Endpoint | Description |
-|----------|-------------|
-| `GET /` | Web dashboard |
+| Endpoint           | Description                     |
+|--------------------|---------------------------------|
+| `GET /`            | Web dashboard                   |
 | `GET /api/history` | Last 100 readings from database |
-| `GET /api/status` | Server status (MQTT, WebSocket) |
+| `GET /api/status`  | Server status (MQTT, WebSocket) |
 
 ---
 
