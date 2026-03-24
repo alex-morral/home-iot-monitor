@@ -1,0 +1,12 @@
+{
+  "name": "project-dashboard-iot",
+  "private": true,
+  "scripts": {
+    "start": "cd iot-dashboard && node server.js",
+    "test-mqtt": "cd iot-dashboard && node test-mqtt.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.8.0",
+    "node-telegram-bot-api": "^0.67.0"
+  }
+}
