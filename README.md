@@ -118,9 +118,6 @@ const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID';
 ### Web Dashboard
 ![Dashboard](docs/dashboard.png)
 
-### MQTT Terminal Output
-![Terminal](docs/terminal.png)
-
 ### Telegram Motion Alert
 ![Telegram](docs/telegram.png)
 
