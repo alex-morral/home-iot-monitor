@@ -1,0 +1,5 @@
+node_modules/
+sensors.db
+package-lock.json
+.claude/
+.env
